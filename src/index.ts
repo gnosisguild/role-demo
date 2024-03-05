@@ -1,4 +1,5 @@
 import { formatBytes32String } from "ethers/lib/utils"
+import fs from "fs"
 import { setUpRolesMod } from "zodiac-roles-sdk"
 import dotenv from "dotenv"
 import { allow as allowEth, apply as applyEth } from "defi-kit/eth"
@@ -34,7 +35,9 @@ const main = async () => {
       ],
     })
 
-    console.log(tx)
+    fs.mkdirSync("./output")
+    fs.writeFileSync("output/tx.json", JSON.stringify(tx))
+    console.log("Transaction JSON saved to output/tx.json")
   } catch (e) {
     console.error(e)
   }
