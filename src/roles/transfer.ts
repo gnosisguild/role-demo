@@ -12,8 +12,8 @@ export const transferRole = async () => {
   })
 
   const tokenTransferPermissions = [
-    allow.mainnet.usdc.transfer(c.eq(allowedTransferAddresses)),
-    allow.mainnet.dai.transfer(c.eq(allowedTransferAddresses)),
+    allow.gnosis.weth.transfer(c.eq(allowedTransferAddresses)),
+    allow.gnosis.eure.transfer(c.eq(allowedTransferAddresses)),
   ]
 
   const transferMembers = [
