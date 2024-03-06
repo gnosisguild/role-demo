@@ -16,8 +16,12 @@ const main = async () => {
       roles: await getRolesConfig(),
     })
 
-    fs.mkdirSync("./output")
-    fs.writeFileSync("output/tx.json", JSON.stringify(tx))
+    const dir = "./output"
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync("./output")
+    }
+    const timestamp = new Date().toISOString().replace(/\s/g, "-")
+    fs.writeFileSync(`output/tx-${timestamp}.json`, JSON.stringify(tx))
     console.log("Transaction JSON saved to output/tx.json")
   } catch (e) {
     console.error(e)
