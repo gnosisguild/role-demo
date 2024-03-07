@@ -12,13 +12,18 @@ export const oneOf = <T>(values: readonly T[]) => {
   return values.length === 1 ? values[0] : c.or(...(values as [T, T, ...T[]]))
 }
 
-const allowedTransferAddresses = [
-  "0x485E60C486671E932fd9C53d4110cdEab1E7F0eb",
-  "0x37F1eE65C2F8610741cd9Dff1057F926809C4078",
-]
+// get comma separated address from ALLOWED_TRANSFER_RECIPIENT_ADDRESSES env var
+const allowedTransferAddresses = process.env
+  .ALLOWED_TRANSFER_RECIPIENT_ADDRESSES
+  ? process.env.ALLOWED_TRANSFER_RECIPIENT_ADDRESSES.split(",")
+  : []
 
 // this role should be able to transfer any token on our allowedToken list to any address on our allowedTransferAddresses list
-export const transferRole = async () => {
+export const transferRole = async (): Promise<{
+  key: string
+  members: `0x${string}`[]
+  permissions: TargetPermission[]
+}> => {
   const checksummedAddresses = allowedTransferAddresses.map((address) =>
     getAddress(address)
   )
@@ -30,6 +35,7 @@ export const transferRole = async () => {
   const tokenTransferPermissions = [
     allow.gnosis.weth.transfer(oneOf(checksummedAddresses)),
     allow.gnosis.eure.transfer(oneOf(checksummedAddresses)),
+    allow.gnosis.cow.transfer(oneOf(checksummedAddresses)),
   ]
 
   const transferMembers = [
