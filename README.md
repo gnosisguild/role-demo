@@ -45,6 +45,8 @@ ALl you need is a Safe deployed on a network where the Roles mod is deployed, an
    `yarn eth/sdk && yarn start`
 
 5. Upload the generate json file to the Safe's transaction builder
+   <img width="1254" alt="Screenshot 2024-03-08 at 10 59 57 AM" src="https://github.com/gnosisguild/role-demo/assets/6718506/267d27b1-a851-421b-953c-7e06e22722a3">
+   Here's what mine looks like uploaded. Depending on how many permissions you've added your transaction batch will have a different number of steps — mine has 21.
 
 6. Execute the transaction with the Safe's multisig process.
 
