@@ -12,18 +12,18 @@ export const oneOf = <T>(values: readonly T[]) => {
   return values.length === 1 ? values[0] : c.or(...(values as [T, T, ...T[]]))
 }
 
-// get comma separated address from ALLOWED_TRANSFER_RECIPIENT_ADDRESSES env var
-const allowedTransferAddresses = process.env
-  .ALLOWED_TRANSFER_RECIPIENT_ADDRESSES
-  ? process.env.ALLOWED_TRANSFER_RECIPIENT_ADDRESSES.split(",")
-  : []
-
 // this role should be able to transfer any token on our allowedToken list to any address on our allowedTransferAddresses list
 export const transferRole = async (): Promise<{
   key: string
   members: `0x${string}`[]
   permissions: TargetPermission[]
 }> => {
+  // get comma separated address from ALLOWED_TRANSFER_RECIPIENT_ADDRESSES env var
+  const allowedTransferAddresses = process.env
+    .ALLOWED_TRANSFER_RECIPIENT_ADDRESSES
+    ? process.env.ALLOWED_TRANSFER_RECIPIENT_ADDRESSES.split(",")
+    : []
+
   const checksummedAddresses = allowedTransferAddresses.map((address) =>
     getAddress(address)
   )
